@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:postgresql://banking:${DEV_DB_PORT:5432}/${DEV_DB_NAME:banking}?currentSchema=${DEV_DEFAULT_SCHEMA:account_card}
+    url: jdbc:postgresql://localhost:${DEV_DB_PORT:5432}/${DEV_DB_NAME:banking}?currentSchema=${DEV_DEFAULT_SCHEMA:account_card}
     username: ${DEV_DB_USERNAME:admin}
     password: ${DEV_DB_USERNAME:admin}
     driver-class-name: org.postgresql.Driver
