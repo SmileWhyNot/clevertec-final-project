@@ -3,6 +3,11 @@ spring:
     gateway:
       routes:
 
+        - id: auth-service
+          uri: lb://AUTH-SERVICE
+          predicates:
+            - Path=${AUTH_SERVICE_PATH}
+
         - id: customer-service
           uri: lb://CUSTOMER-SERVICE
           predicates:
@@ -17,10 +22,12 @@ spring:
           filters:
             - AuthenticationFilter
 
-        - id: auth-service
-          uri: lb://AUTH-SERVICE
+        - id: deposit-service
+          uri: lb://DEPOSIT-SERVICE
           predicates:
-            - Path=${AUTH_SERVICE_PATH}
+            - Path=${DEPOSIT_SERVICE_PATH}
+          filters:
+            - AuthenticationFilter
 
         - id: account-card-service
           uri: lb://ACCOUNT-CARD-SERVICE

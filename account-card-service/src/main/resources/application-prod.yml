@@ -1,8 +1,12 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:${PROD_DB_PORT}/${DB_NAME}?currentSchema=${DEFAULT_SCHEMA}
-    username: ${PROD_DB_USERNAME}
-    password: ${PROD_DB_PASSWORD}
+    url: jdbc:postgresql://localhost:${PROD_DB_PORT:15432}/${DB_NAME:clevertec-banking}?currentSchema=${PROD_DEFAULT_SCHEMA:account_card}
+    username: ${PROD_DB_USERNAME:clevertec}
+    password: ${PROD_DB_USERNAME:banking}
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 0
   jpa:
     show-sql: false
     properties:
@@ -14,11 +18,14 @@ spring:
     change-log: classpath:db/changelog/db.changelog-master.yaml
     liquibase-schema: ${DEFAULT_SCHEMA}
   rabbitmq:
-    addresses: amqp://${RABBIT_USERNAME}:${RABBIT_PASSWORD}@${PROD_RABBIT_HOST}:${PROD_RABBIT_PORT}
     listener:
       simple:
         acknowledge-mode: auto
         prefetch: 1
+    port: ${PROD_RABBIT_PORT}
+    host: ${PROD_RABBIT_HOST}
+    username: ${RABBIT_USERNAME}
+    password: ${RABBIT_PASSWORD}
 clevertec:
   rabbit:
     consumer:
