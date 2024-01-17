@@ -1,28 +1,20 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:${PROD_DB_PORT:5432}/${PROD_DB_NAME:banking}?currentSchema=${PROD_DEFAULT_SCHEMA:account_card}
-    username: ${PROD_DB_USERNAME:admin}
-    password: ${PROD_DB_USERNAME:admin}
-    driver-class-name: org.postgresql.Driver
-    hikari:
-      maximum-pool-size: 10
-      minimum-idle: 0
+    url: jdbc:postgresql://localhost:${PROD_DB_PORT}/${DB_NAME}?currentSchema=${DEFAULT_SCHEMA}
+    username: ${PROD_DB_USERNAME}
+    password: ${PROD_DB_PASSWORD}
   jpa:
-    database: postgresql
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
-    hibernate:
-      ddl-auto: validate
+    show-sql: false
     properties:
       hibernate:
-        format_sql: true
-    show-sql: true
+        format_sql: false
+        default_schema: ${DEFAULT_SCHEMA}
   liquibase:
-    enabled: true
-    default-schema: ${PROD_DEFAULT_SCHEMA:account_card}
+    default-schema: ${DEFAULT_SCHEMA}
     change-log: classpath:db/changelog/db.changelog-master.yaml
-    liquibase-schema: ${PROD_DEFAULT_SCHEMA:account_card}
+    liquibase-schema: ${DEFAULT_SCHEMA}
   rabbitmq:
-    addresses: amqp://${RABBIT_USERNAME:admin}:${RABBIT_PASSWORD:admin}@${PROD_RABBIT_HOST:localhost}:${PROD_RABBIT_PORT:5673}
+    addresses: amqp://${RABBIT_USERNAME}:${RABBIT_PASSWORD}@${PROD_RABBIT_HOST}:${PROD_RABBIT_PORT}
     listener:
       simple:
         acknowledge-mode: auto
@@ -31,12 +23,12 @@ clevertec:
   rabbit:
     consumer:
       queue:
-        account-queue: ${PROD_ACCOUNT_QUEUE_NAME:account_info}
-        card-queue: ${PROD_CARD_QUEUE_NAME:card-info}
+        account-queue: ${PROD_ACCOUNT_QUEUE_NAME}
+        card-queue: ${PROD_CARD_QUEUE_NAME}
   feign:
     service:
-      currency-client: ${PROD_CURRENCY_SERVICE:CURRENCY-SERVICE}
-      currency-get-path: ${PROD_CURRENCY_GET_PATH:/api/v1/currencies}
+      currency-client: ${PROD_CURRENCY_SERVICE}
+      currency-get-path: ${PROD_CURRENCY_GET_PATH}
 logging:
   level:
     org:
@@ -46,4 +38,4 @@ logging:
 eureka:
   client:
     service-url:
-      defaultZone : http://${PROD_EUREKA_HOST:localhost}:${PROD_EUREKA_PORT:8761}/eureka/
+      defaultZone : http://${PROD_EUREKA_HOST}:${PROD_EUREKA_PORT}/eureka/

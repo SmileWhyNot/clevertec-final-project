@@ -1,37 +1,31 @@
 spring:
   datasource:
-    driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:${PROD_DB_PORT:5432}/${PROD_DB_NAME:banking}?currentSchema=${PROD_DEFAULT_SCHEMA:credit}
-    username: ${PROD_DB_USERNAME:admin}
-    password: ${PROD_DB_PASSWORD:admin}
+    url: jdbc:postgresql://localhost:${PROD_DB_PORT}/${DB_NAME}?currentSchema=${DEFAULT_SCHEMA}
+    username: ${PROD_DB_USERNAME}
+    password: ${PROD_DB_PASSWORD}
+  jpa:
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: false
+        default_schema: ${DEFAULT_SCHEMA}
   liquibase:
-    enabled: true
-    default-schema: ${PROD_DEFAULT_SCHEMA:credit}
+    default-schema: ${DEFAULT_SCHEMA}
     change-log: classpath:db/changelog/db.changelog-master.yaml
-    liquibase-schema: ${PROD_DEFAULT_SCHEMA:credit}
+    liquibase-schema: ${DEFAULT_SCHEMA}
   rabbitmq:
-    addresses: amqp://${RABBIT_USERNAME:admin}:${RABBIT_PASSWORD:admin}@${PROD_RABBIT_HOST:localhost}:${PROD_RABBIT_PORT:5673}
+    addresses: amqp://${RABBIT_USERNAME}:${RABBIT_PASSWORD}@${PROD_RABBIT_HOST}:${PROD_RABBIT_PORT}
     listener:
       simple:
         acknowledge-mode: auto
         prefetch: 1
-  jpa:
-    database: postgresql
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
-    hibernate:
-      ddl-auto: validate
-    properties:
-      hibernate:
-        format_sql: true
-        default_schema: ${PROD_DEFAULT_SCHEMA:credit}
-    show-sql: true
 clevertec:
   rabbit:
     consumer:
       queue:
-        credit-queue: ${PROD_RABBITMQ_QUEUE_NAME:credit-details}
+        credit-queue: ${PROD_RABBITMQ_QUEUE_NAME}
 eureka:
   client:
     service-url:
-      defaultZone: http://${PROD_EUREKA_HOST:localhost}:${PROD_EUREKA_PORT:8761}/eureka/
+      defaultZone: http://${PROD_EUREKA_HOST}:${PROD_EUREKA_PORT}/eureka/
     enabled: true

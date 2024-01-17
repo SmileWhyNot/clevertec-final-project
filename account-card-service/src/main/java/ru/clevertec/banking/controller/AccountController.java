@@ -17,6 +17,7 @@ import ru.clevertec.banking.dto.account.AccountWithCardResponse;
 import ru.clevertec.banking.service.AccountService;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/accounts")
@@ -25,7 +26,7 @@ import java.util.List;
 public class AccountController {
     private final AccountService service;
 
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_SUPER_USER') or authentication.principal.equals(#request.customer_id())" +
+    @PreAuthorize("hasRole('ROLE_ADMIN') or authentication.principal.equals(#request.customer_id())" +
             " and hasRole('ROLE_USER')")
     @ResponseStatus(value = HttpStatus.CREATED)
     @PostMapping
@@ -34,27 +35,27 @@ public class AccountController {
         return service.save(request);
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_SUPER_USER')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping
     public Page<AccountWithCardResponse> getAll(@PageableDefault(sort = {"iban"}) Pageable pageable) {
         return service.getAll(pageable);
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_SUPER_USER') or authentication.principal.equals(#uuid) " +
+    @PreAuthorize("hasRole('ROLE_ADMIN') or authentication.principal.equals(#uuid) " +
             "and hasRole('ROLE_USER')")
     @GetMapping("/by-customer-id/{uuid}")
-    public List<AccountWithCardResponse> findByCustomer(@PathVariable String uuid) {
+    public List<AccountWithCardResponse> findByCustomer(@PathVariable UUID uuid) {
         return service.findByCustomer(uuid);
     }
 
-    @PostAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_SUPER_USER') or authentication.principal.equals(returnObject.customer_id()) " +
+    @PostAuthorize("hasRole('ROLE_ADMIN') or authentication.principal.equals(returnObject.customer_id()) " +
             "and hasRole('ROLE_USER')")
     @GetMapping("/by-iban/{iban}")
     public AccountResponse findByIban(@PathVariable String iban) {
         return service.findByIban(iban);
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_SUPER_USER') or authentication.principal.equals(" +
+    @PreAuthorize("hasRole('ROLE_ADMIN') or authentication.principal.equals(" +
             "@accountServiceImpl.findByIban(#request.iban()).customer_id()) and hasRole('ROLE_USER')")
     @PatchMapping
     public AccountResponse update(@RequestBody @Valid AccountRequestForUpdate request) {
