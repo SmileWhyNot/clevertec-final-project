@@ -18,9 +18,9 @@ spring:
     show-sql: true
   liquibase:
     enabled: true
-    default-schema: ${DEV_DEFAULT_SCHEMA:account_card}
+    default-schema: ${DEFAULT_SCHEMA}
     change-log: classpath:db/changelog/db.changelog-master.yaml
-    liquibase-schema: ${DEV_DEFAULT_SCHEMA:account_card}
+    liquibase-schema: ${DEFAULT_SCHEMA}
   rabbitmq:
     listener:
       simple:

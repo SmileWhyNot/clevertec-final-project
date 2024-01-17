@@ -6,9 +6,9 @@ spring:
     password: ${DEV_DB_PASSWORD:postgres}
   liquibase:
     enabled: true
-    default-schema: ${DEV_DEFAULT_SCHEMA:credit}
+    default-schema: ${DEFAULT_SCHEMA}
     change-log: classpath:db/changelog/db.changelog-master.yaml
-    liquibase-schema: ${DEV_DEFAULT_SCHEMA:credit}
+    liquibase-schema: ${DEFAULT_SCHEMA}
   rabbitmq:
     listener:
       simple:
@@ -32,9 +32,9 @@ clevertec:
   rabbit:
     consumer:
       queue:
-        credit-queue: ${DEV_RABBITMQ_QUEUE_NAME:credit-details}
+        credit-queue: ${DEV_RABBITMQ_QUEUE_NAME}
 eureka:
   client:
     service-url:
-      defaultZone: http://${DEV_EUREKA_HOST:localhost}:${DEV_EUREKA_PORT:8761}/eureka/
+      defaultZone: http://${DEV_EUREKA_HOST}:${DEV_EUREKA_PORT}/eureka/
     enabled: true

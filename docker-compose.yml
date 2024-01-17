@@ -36,7 +36,7 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_DB: ${POSTGRES_DB}
     ports:
-      - "15432:5432"
+      - "15432:5431"
     volumes:
       - db-data:/var/lib/postgresql/data
     restart: always
@@ -154,6 +154,40 @@ services:
     ports:
       - "15672:15672"
       - "5672:5672"
+    networks:
+      - clevertec-banking-net
+
+  account-card-service:
+    image: account-card-service:0.0.1
+    build:
+      context: ./account-card-service
+      dockerfile: Dockerfile
+    restart: always
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://service-db/clevertec-banking
+      eureka.client.serviceUrl.defaultZone: http://eureka-server:8761/eureka/
+      SPRING_PROFILES_ACTIVE: prod
+    env_file:
+      - ./account-card-service/.env
+    ports:
+      - "8540:8540"
+    networks:
+      - clevertec-banking-net
+
+  credit-service:
+    image: credit-service:0.0.1
+    build:
+      context: ./credit-service
+      dockerfile: Dockerfile
+    restart: always
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://service-db/clevertec-banking
+      eureka.client.serviceUrl.defaultZone: http://eureka-server:8761/eureka/
+      SPRING_PROFILES_ACTIVE: prod
+    env_file:
+      - ./credit-service/.env
+    ports:
+      - "8640:8640"
     networks:
       - clevertec-banking-net
 

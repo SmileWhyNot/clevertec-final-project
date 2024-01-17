@@ -5,10 +5,9 @@ spring:
     username: ${PROD_DB_USERNAME:clevertec}
     password: ${PROD_DB_PASSWORD:banking}
   liquibase:
-    enabled: true
-    default-schema: ${PROD_DEFAULT_SCHEMA:credit}
+    default-schema: ${DEFAULT_SCHEMA}
     change-log: classpath:db/changelog/db.changelog-master.yaml
-    liquibase-schema: ${PROD_DEFAULT_SCHEMA:credit}
+    liquibase-schema: ${DEFAULT_SCHEMA}
   rabbitmq:
     listener:
       simple:
@@ -32,9 +31,9 @@ clevertec:
   rabbit:
     consumer:
       queue:
-        credit-queue: ${PROD_RABBITMQ_QUEUE_NAME:credit-details}
+        credit-queue: ${PROD_RABBITMQ_QUEUE_NAME}
 eureka:
   client:
     service-url:
-      defaultZone: http://${PROD_EUREKA_HOST:localhost}:${PROD_EUREKA_PORT:8761}/eureka/
+      defaultZone: http://${PROD_EUREKA_HOST}:${PROD_EUREKA_PORT}/eureka/
     enabled: true

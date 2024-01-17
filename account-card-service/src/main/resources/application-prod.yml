@@ -8,19 +8,15 @@ spring:
       maximum-pool-size: 10
       minimum-idle: 0
   jpa:
-    database: postgresql
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
-    hibernate:
-      ddl-auto: validate
+    show-sql: false
     properties:
       hibernate:
-        format_sql: true
-    show-sql: true
+        format_sql: false
+        default_schema: ${DEFAULT_SCHEMA}
   liquibase:
-    enabled: true
-    default-schema: ${PROD_DEFAULT_SCHEMA:account_card}
+    default-schema: ${DEFAULT_SCHEMA}
     change-log: classpath:db/changelog/db.changelog-master.yaml
-    liquibase-schema: ${PROD_DEFAULT_SCHEMA:account_card}
+    liquibase-schema: ${DEFAULT_SCHEMA}
   rabbitmq:
     listener:
       simple:
@@ -34,12 +30,12 @@ clevertec:
   rabbit:
     consumer:
       queue:
-        account-queue: ${PROD_ACCOUNT_QUEUE_NAME:account_info}
-        card-queue: ${PROD_CARD_QUEUE_NAME:card-info}
+        account-queue: ${PROD_ACCOUNT_QUEUE_NAME}
+        card-queue: ${PROD_CARD_QUEUE_NAME}
   feign:
     service:
-      currency-client: ${PROD_CURRENCY_SERVICE:CURRENCY-SERVICE}
-      currency-get-path: ${PROD_CURRENCY_GET_PATH:/api/v1/currencies}
+      currency-client: ${PROD_CURRENCY_SERVICE}
+      currency-get-path: ${PROD_CURRENCY_GET_PATH}
 logging:
   level:
     org:
@@ -49,4 +45,4 @@ logging:
 eureka:
   client:
     service-url:
-      defaultZone : http://${PROD_EUREKA_HOST:localhost}:${PROD_EUREKA_PORT:8761}/eureka/
+      defaultZone : http://${PROD_EUREKA_HOST}:${PROD_EUREKA_PORT}/eureka/

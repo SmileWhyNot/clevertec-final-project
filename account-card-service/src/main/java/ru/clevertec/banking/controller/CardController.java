@@ -27,7 +27,7 @@ import java.util.UUID;
 public class CardController {
     private final CardService service;
 
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_SUPER_USER') or authentication.principal.equals(#request.customer_id())" +
+    @PreAuthorize("hasRole('ROLE_ADMIN') or authentication.principal.equals(#request.customer_id())" +
             " and hasRole('ROLE_USER')")
     @ResponseStatus(value = HttpStatus.CREATED)
     @PostMapping
@@ -35,27 +35,27 @@ public class CardController {
         return service.save(request);
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_SUPER_USER') or authentication.principal.equals(" +
+    @PreAuthorize("hasRole('ROLE_ADMIN') or authentication.principal.equals(" +
             "@cardServiceImpl.findByCardNumber(#request.card_number()).customer_id()) and hasRole('ROLE_USER')")
     @PatchMapping
     public CardResponse update(@RequestBody @Valid CardRequestForUpdate request) {
         return service.update(request);
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_SUPER_USER')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping
     public Page<CardResponse> getAll(@PageableDefault(sort = {"iban"}) Pageable pageable) {
         return service.findAll(pageable);
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_SUPER_USER') or authentication.principal.equals(#uuid) " +
+    @PreAuthorize("hasRole('ROLE_ADMIN') or authentication.principal.equals(#uuid) " +
             "and hasRole('ROLE_USER')")
     @GetMapping("/by-customer-id/{uuid}")
     public List<CardResponse> findByCustomer(@PathVariable UUID uuid) {
         return service.findByCustomer(uuid);
     }
 
-    @PostAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_SUPER_USER') or authentication.principal.equals(returnObject.customer_id()) " +
+    @PostAuthorize("hasRole('ROLE_ADMIN') or authentication.principal.equals(returnObject.customer_id()) " +
             "and hasRole('ROLE_USER')")
     @GetMapping("/by-card-number/{cardNumber}")
     public CardCurrencyResponse findByCardNumber(@PathVariable String cardNumber) {
