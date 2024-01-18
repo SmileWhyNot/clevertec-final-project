@@ -29,6 +29,21 @@ services:
     networks:
       - clevertec-banking-net
 
+  cloud-config-service:
+    image: cloud-config-service:0.0.1
+    build:
+      context: ./cloud-config-service
+      dockerfile: Dockerfile
+    restart: always
+    environment:
+      eureka.client.serviceUrl.defaultZone: http://eureka-server:8761/eureka/
+    env_file:
+      - ./cloud-config-service/.env
+    ports:
+      - "8254:8254"
+    networks:
+      - clevertec-banking-net
+
   service-db:
     image: postgres:15.2-alpine
     environment:

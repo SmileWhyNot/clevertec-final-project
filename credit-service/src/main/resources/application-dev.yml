@@ -1,9 +1,8 @@
 spring:
   datasource:
-    driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:${DEV_DB_PORT:5432}/${DB_NAME:clevertec-banking}?currentSchema=${DEV_DEFAULT_SCHEMA:credit}
-    username: ${DEV_DB_USERNAME:postgres}
-    password: ${DEV_DB_PASSWORD:postgres}
+    url: jdbc:postgresql://localhost:${DEV_DB_PORT}/${DB_NAME}?currentSchema=${DEFAULT_SCHEMA}
+    username: ${DEV_DB_USERNAME}
+    password: ${DEV_DB_PASSWORD}
   liquibase:
     enabled: true
     default-schema: ${DEFAULT_SCHEMA}
@@ -18,16 +17,6 @@ spring:
     host: ${DEV_RABBIT_HOST}
     username: ${RABBIT_USERNAME}
     password: ${RABBIT_PASSWORD}
-  jpa:
-    database: postgresql
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
-    hibernate:
-      ddl-auto: validate
-    properties:
-      hibernate:
-        format_sql: true
-        default_schema: ${DEV_DEFAULT_SCHEMA:credit}
-    show-sql: true
 clevertec:
   rabbit:
     consumer:

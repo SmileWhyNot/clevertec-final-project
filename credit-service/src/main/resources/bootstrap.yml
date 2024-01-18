@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: CREDIT-SERVICE
+  cloud:
+    config:
+      fail-fast: true
+      discovery:
+        enabled: false  #потом включить, чтоб тянул конфиги
+        service-id: CLOUD-CONFIG-SERVICE
+      retry:
+        initial-interval: 2000
+        multiplier: 1.5
+        max-interval: 6000
+        max-attempts: 50
+eureka:
+  client:
+    service-url:
+      defaultZone: http://${PROD_EUREKA_HOST}:${PROD_EUREKA_PORT}/eureka/
+    enabled: true
