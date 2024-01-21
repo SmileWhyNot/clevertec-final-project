@@ -36,7 +36,7 @@ import static ru.clevertec.banking.util.CreditFactory.getRequest;
 @TestConstructor(autowireMode = TestConstructor.AutowireMode.ALL)
 @RequiredArgsConstructor
 @Tag("integration")
-public class CreditControllerTest {
+public class CreditControllerImplTest {
     private final MockMvc mockMvc;
     private final ObjectMapper objectMapper;
 
