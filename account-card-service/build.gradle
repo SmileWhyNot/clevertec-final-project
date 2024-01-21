@@ -33,6 +33,7 @@ dependencies {
     implementation "net.lbruun.springboot:preliquibase-spring-boot-starter:${preLiquibaseStarterVersion}"
     implementation 'org.springframework.boot:spring-boot-starter-amqp'
     implementation 'commons-io:commons-io:2.15.1'
+    implementation "org.springdoc:springdoc-openapi-starter-webmvc-ui:${openapiStarterVersion}"
 
     implementation 'org.springframework.boot:spring-boot-configuration-processor'
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'

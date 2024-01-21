@@ -3,6 +3,7 @@ package ru.clevertec.banking.service;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mapstruct.factory.Mappers;
@@ -30,8 +31,6 @@ import ru.clevertec.banking.mapper.CardMapper;
 import ru.clevertec.banking.repository.AccountRepository;
 import ru.clevertec.banking.repository.specifications.FilterSpecifications;
 import ru.clevertec.banking.service.impl.AccountServiceImpl;
-import ru.clevertec.banking.util.AccountFactory;
-import ru.clevertec.banking.util.CardFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,6 +44,7 @@ import static ru.clevertec.banking.util.AccountFactory.*;
 
 
 @ExtendWith(MockitoExtension.class)
+@Tag("unit")
 public class AccountServiceTest {
     @Mock
     private AccountRepository repository;

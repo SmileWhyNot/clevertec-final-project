@@ -1,6 +1,7 @@
 package ru.clevertec.banking.service;
 
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mapstruct.factory.Mappers;
@@ -24,7 +25,6 @@ import ru.clevertec.banking.repository.specifications.FilterSpecifications;
 import ru.clevertec.banking.service.impl.CardServiceImpl;
 import ru.clevertec.banking.util.AccountFactory;
 import ru.clevertec.banking.util.CardBalanceUtils;
-import ru.clevertec.banking.util.CardFactory;
 
 import java.util.List;
 import java.util.Optional;
@@ -37,6 +37,7 @@ import static ru.clevertec.banking.util.BalanceFactory.*;
 import static ru.clevertec.banking.util.CardFactory.*;
 
 @ExtendWith(MockitoExtension.class)
+@Tag("unit")
 public class CardServiceTest {
 
     @Mock

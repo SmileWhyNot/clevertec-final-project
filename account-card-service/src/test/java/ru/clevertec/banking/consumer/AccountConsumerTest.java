@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.amqp.core.Message;
@@ -32,13 +33,14 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.testcontainers.shaded.org.awaitility.Awaitility.await;
-import static ru.clevertec.banking.util.FileReaderUtils.readFile;
+import static ru.clevertec.banking.util.FileReaderUtils.*;
 
 @SpringBootTest
 @TestConstructor(autowireMode = TestConstructor.AutowireMode.ALL)
 @ActiveProfiles("test")
 @RequiredArgsConstructor
 @ContextConfiguration(classes = {PostgreSQLContainerConfig.class, RabbitMQContainerConfig.class})
+@Tag("integration")
 public class AccountConsumerTest {
     private final RabbitTemplate rabbitTemplate;
     @SpyBean

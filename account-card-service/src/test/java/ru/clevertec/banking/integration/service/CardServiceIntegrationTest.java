@@ -4,10 +4,7 @@ import com.github.tomakehurst.wiremock.client.WireMock;
 import com.github.tomakehurst.wiremock.junit5.WireMockTest;
 import feign.FeignException;
 import lombok.RequiredArgsConstructor;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Nested;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -42,6 +39,7 @@ import static ru.clevertec.banking.util.FileReaderUtils.*;
 @ActiveProfiles("test")
 @RequiredArgsConstructor
 @ContextConfiguration(classes = {PostgreSQLContainerConfig.class})
+@Tag("integration")
 public class CardServiceIntegrationTest {
 
     private final CardService cardService;
