@@ -63,6 +63,7 @@ public class AccountController {
     }
 
     @PreAuthorize("hasRole('ROLE_SUPER_USER')")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping({"/{iban}"})
     public void delete(@PathVariable String iban) {
         service.deleteByIban(iban);

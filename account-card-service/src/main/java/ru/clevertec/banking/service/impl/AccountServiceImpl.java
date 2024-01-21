@@ -3,6 +3,7 @@ package ru.clevertec.banking.service.impl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.clevertec.banking.advice.exception.ResourceNotFoundException;
@@ -73,7 +74,7 @@ public class AccountServiceImpl implements AccountService {
                 .map(repository::save)
                 .map(mapper::toResponse)
                 .orElseThrow(() -> new RestApiServerException("Failed to update account with iban: %s "
-                        .formatted(request.iban())));
+                        .formatted(request.iban()), HttpStatus.INTERNAL_SERVER_ERROR));
     }
 
     @Override

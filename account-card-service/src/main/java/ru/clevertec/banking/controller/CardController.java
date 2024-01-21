@@ -63,6 +63,7 @@ public class CardController {
     }
 
     @PreAuthorize("hasRole('ROLE_SUPER_USER')")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{cardNumber}")
     public void delete(@PathVariable String cardNumber) {
         service.deleteByCardNumber(cardNumber);
