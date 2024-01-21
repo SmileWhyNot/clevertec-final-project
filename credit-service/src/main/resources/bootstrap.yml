@@ -5,14 +5,14 @@ spring:
     config:
       fail-fast: true
       discovery:
-        enabled: true  #потом включить, чтоб тянул конфиги
+        enabled: false  #потом включить, чтоб тянул конфиги
         service-id: CLOUD-CONFIG-SERVICE
       retry:
         initial-interval: 2000
         multiplier: 1.5
         max-interval: 6000
         max-attempts: 50
-      enabled: true #потом включить, чтоб тянул конфиги
+      enabled: false #потом включить, чтоб тянул конфиги
 eureka:
   client:
     service-url:
