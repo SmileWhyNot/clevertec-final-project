@@ -12,6 +12,7 @@ spring:
         multiplier: 1.5
         max-interval: 6000
         max-attempts: 50
+      enabled: false #потом включить, чтоб тянул конфиги
 eureka:
   client:
     service-url:

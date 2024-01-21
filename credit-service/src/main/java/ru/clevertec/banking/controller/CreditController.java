@@ -46,6 +46,7 @@ public class CreditController {
     }
 
     @PreAuthorize("hasRole('ROLE_SUPER_USER')")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{contractNumber}")
     public void deleteByContractNumber(@PathVariable String contractNumber) {
         service.delete(contractNumber);

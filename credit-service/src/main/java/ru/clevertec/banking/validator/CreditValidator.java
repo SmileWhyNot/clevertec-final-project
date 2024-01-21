@@ -31,6 +31,7 @@ public class CreditValidator implements ConstraintValidator<CreditValidation, Cr
             context.disableDefaultConstraintViolation();
             context.buildConstraintViolationWithTemplate("An credit with such an iban already exists")
                     .addConstraintViolation();
+            return false;
         }
         return true;
     }
