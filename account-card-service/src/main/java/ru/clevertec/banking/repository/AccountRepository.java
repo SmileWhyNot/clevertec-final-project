@@ -22,4 +22,5 @@ public interface AccountRepository extends PagingAndSortingRepository<Account, S
 
     @Query(value = "SELECT a.* FROM account a WHERE a.iban = ?1", nativeQuery = true)
     Optional<Account> findAccountByIbanWithDeleted(String iban);
+
 }

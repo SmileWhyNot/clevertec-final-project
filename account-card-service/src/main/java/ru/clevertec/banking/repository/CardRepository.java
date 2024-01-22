@@ -22,4 +22,5 @@ public interface CardRepository extends PagingAndSortingRepository<Card, String>
 
     @Query(value = "SELECT c.* FROM card c WHERE c.card_number = ?1", nativeQuery = true)
     Optional<Card> findCardByCardNumberWithDeleted(String cardNumber);
+
 }
