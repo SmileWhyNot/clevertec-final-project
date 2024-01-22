@@ -1,6 +1,6 @@
 spring:
   application:
-    name: CREDIT-SERVICE
+    name: ACCOUNT-CARD-SERVICE
   cloud:
     config:
       fail-fast: true

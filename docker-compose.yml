@@ -37,6 +37,7 @@ services:
     restart: always
     environment:
       eureka.client.serviceUrl.defaultZone: http://eureka-server:8761/eureka/
+      SPRING_PROFILES_ACTIVE: native
     env_file:
       - ./cloud-config-service/.env
     ports:
@@ -168,6 +169,8 @@ services:
       - RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS=-rabbit disk_free_limit 2147483648 # 2GB
     volumes:
       - rabbitmq-data:/var/lib/rabbitmq
+      - ./rabbit/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf:ro
+      - ./rabbit/definitions.json:/etc/rabbitmq/definitions.json:ro
     ports:
       - "15672:15672"
       - "5672:5672"

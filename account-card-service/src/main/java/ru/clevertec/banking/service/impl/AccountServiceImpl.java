@@ -1,6 +1,8 @@
 package ru.clevertec.banking.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -33,6 +35,7 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     @Transactional
+    @CachePut(key = "#result.iban()")
     public AccountResponse save(AccountRequest request) {
         return Optional.of(request)
                 .map(mapper::fromRequest)
@@ -42,6 +45,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    @CachePut(key = "#iban")
     public AccountResponse findByIban(String iban) {
         return repository.findAccountByIban(iban)
                 .map(mapper::toResponse)
@@ -65,6 +69,7 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     @Transactional
+    @CachePut(key = "#request.iban()")
     public AccountResponse update(AccountRequestForUpdate request) {
         return Optional.of(request)
                 .map(AccountRequestForUpdate::iban)
@@ -79,6 +84,7 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     @Transactional
+    @CacheEvict(key = "#iban")
     public void deleteByIban(String iban) {
         repository.deleteAccountByIban(iban);
     }

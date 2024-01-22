@@ -1,8 +1,10 @@
 server:
   port: ${PORT:0}
 spring:
-  profiles:
-    active: dev
+  cache:
+    redis:
+      time-to-live: 3h
+      key-prefix: "${spring.application.name}:"
   datasource:
     driver-class-name: org.postgresql.Driver
     hikari:

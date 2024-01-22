@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:${DEV_DB_PORT}/${DB_NAME}?currentSchema=${DEFAULT_SCHEMA}
+    url: jdbc:postgresql://${DEV_HOST_DB_URL}:${DEV_DB_PORT}/${DB_NAME}?currentSchema=${DEFAULT_SCHEMA}
     username: ${DEV_DB_USERNAME}
     password: ${DEV_DB_PASSWORD}
   liquibase:

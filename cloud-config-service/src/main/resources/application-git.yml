@@ -2,11 +2,11 @@ spring:
   cloud:
     config:
       server:
-        prefix: ${PREFIX_PATH:/cloud-configs} # перфикс, по которому делать запрос
+        prefix: ${PREFIX_PATH} # перфикс, по которому делать запрос
         git:
-          uri: ${GIT_URI:git@github.com:DiabloElf/spring-boot-configs.git} # урл гит репозитория с конфигами
-          default-label: ${DEFAULT_BRANCH:master} #ветка в которой будет идти поиск конфигов
-          search-paths: 'configs/{application}'
+          uri: ${GIT_URI} # урл гит репозитория с конфигами
+          default-label: ${DEFAULT_BRANCH} #ветка в которой будет идти поиск конфигов
+          search-paths: ${SEARCH_PATH}
           force-pull: true
           ignore-local-ssh-settings: true
           private-key: |
