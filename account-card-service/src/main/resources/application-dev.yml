@@ -1,35 +1,19 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:${DEV_DB_PORT:5432}/${DB_NAME:clevertec-banking}?currentSchema=${DEV_DEFAULT_SCHEMA:account_card}
-    username: ${DEV_DB_USERNAME:postgres}
-    password: ${DEV_DB_PASSWORD:postgres}
-    driver-class-name: org.postgresql.Driver
-    hikari:
-      maximum-pool-size: 10
-      minimum-idle: 0
-  jpa:
-    database: postgresql
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
-    hibernate:
-      ddl-auto: validate
-    properties:
-      hibernate:
-        format_sql: true
-    show-sql: true
+    url: jdbc:postgresql://localhost:${DEV_DB_PORT}/${DB_NAME}?currentSchema=${DEV_DEFAULT_SCHEMA}
+    username: ${DEV_DB_USERNAME}
+    password: ${DEV_DB_PASSWORD}
   liquibase:
     enabled: true
-    default-schema: ${DEV_DEFAULT_SCHEMA:account_card}
+    default-schema: ${DEFAULT_SCHEMA}
     change-log: classpath:db/changelog/db.changelog-master.yaml
-    liquibase-schema: ${DEV_DEFAULT_SCHEMA:account_card}
+    liquibase-schema: ${DEFAULT_SCHEMA}
   rabbitmq:
+    addresses: amqp://${RABBIT_USERNAME}:${RABBIT_PASSWORD}@${DEV_RABBIT_HOST}:${DEV_RABBIT_PORT}
     listener:
       simple:
         acknowledge-mode: auto
         prefetch: 1
-    port: ${DEV_RABBIT_PORT}
-    host: ${DEV_RABBIT_HOST}
-    username: ${RABBIT_USERNAME}
-    password: ${RABBIT_PASSWORD}
 clevertec:
   rabbit:
     consumer:
